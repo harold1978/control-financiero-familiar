@@ -1,0 +1,52 @@
+rules_version = '2';
+
+// -----------------------------------------------------------------------------
+// Reglas de Firestore del Control Financiero Familiar
+//
+// ESTADO ACTUAL: acceso abierto (allow read, write: if true).
+//
+// ¿Por qué? Por requisito explícito del proyecto: la aplicación NO usa
+// autenticación de usuarios. Con autenticación, cualquier regla "if request.auth != null"
+// impediría el funcionamiento de la app.
+//
+// RIESGO ACEPTADO Y DOCUMENTADO: con estas reglas, cualquiera que conozca el
+// identificador del proyecto puede leer o modificar los datos. Antes de
+// publicar la aplicación se debe hacer UNO de estos dos cambios (ver COMPLIANCE.md):
+//
+//   1. Activar Firebase App Check (recomendado, no exige cambiar la app):
+//      consola → Firebase → App Check → registra la app → activa "Enforce".
+//   2. Añadir autenticación anónima y endurecer las reglas:
+//      allow read, write: if request.auth != null;
+//
+// Mientras tanto, protege el acceso a la consola de Google Cloud con
+// permisos mínimos (principio del menor privilegio) y revisa los registros
+// de actividad de Cloud Audit Logs.
+// -----------------------------------------------------------------------------
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /categories/{categoryId} {
+      allow read, write: if true;
+    }
+
+    match /incomes/{incomeId} {
+      allow read, write: if true;
+    }
+
+    match /expenses/{expenseId} {
+      allow read, write: if true;
+    }
+
+    // El identificador del documento es el id de la categoría:
+    // solo puede existir un presupuesto por categoría.
+    match /budgets/{categoryId} {
+      allow read, write: if true;
+    }
+
+    // Ajustes: moneda y constancia de aceptación del aviso de privacidad.
+    match /settings/{settingsId} {
+      allow read, write: if true;
+    }
+  }
+}

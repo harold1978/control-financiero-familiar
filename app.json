@@ -1,25 +1,44 @@
 {
   "expo": {
-    "name": "control-financiero-familiar",
+    "name": "Control Financiero Familiar",
     "slug": "control-financiero-familiar",
+    "scheme": "controlfinanciero",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "description": "Aplicación para el control de ingresos, gastos, presupuesto y ahorro familiar.",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "backgroundColor": "#F5F7FB",
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.controlfinancierofamiliar"
     },
     "android": {
+      "package": "com.example.controlfinancierofamiliar",
+      "predictiveBackGestureEnabled": false,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      },
-      "predictiveBackGestureEnabled": false
+      }
     },
     "web": {
+      "bundler": "metro",
+      "output": "static",
+      "name": "Control Financiero Familiar",
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      }
     }
   }
 }
